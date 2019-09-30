@@ -1,0 +1,15 @@
+sudo: required
+services:
+ - docker
+
+before_install:
+ - docker build -t githubbizzo/react-test -f ./client/Dockerfile-dev ./client
+
+scripts:
+ - docker run -e CI= true githubbizzo/react-test npm test
+
+after_success:
+ - docker build -t githubbizzo/complex-client ./client
+ - docker build -t githubbizzo/complex-nginx ./nginx
+ - docker build -t githubbizzo/complex-server ./server
+ - docker build -t githubbizzo/complex-worker ./worker
