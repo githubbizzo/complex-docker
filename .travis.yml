@@ -1,4 +1,5 @@
 sudo: required
+language: generic
 services:
  - docker
 
@@ -13,3 +14,10 @@ after_success:
  - docker build -t githubbizzo/complex-nginx ./nginx
  - docker build -t githubbizzo/complex-server ./server
  - docker build -t githubbizzo/complex-worker ./worker
+
+ - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+
+ - docker push githubbizzo/complex-client
+ - docker push githubbizzo/complex-nginx
+ - docker push githubbizzo/complex-server
+ - docker push githubbizzo/complex-worker
