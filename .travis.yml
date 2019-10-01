@@ -21,3 +21,17 @@ after_success:
  - docker push githubbizzo/complex-nginx
  - docker push githubbizzo/complex-server
  - docker push githubbizzo/complex-worker
+
+deploy:
+ provider: elasticbeanstalk
+ region: us-east-2
+ app: complex-docker
+ env: ComplexDocker-env
+ bucket-name: elasticbeanstalk-us-east-2-124691454759
+ bucket_path: docker_multi
+ on:
+  branch: master
+ access_key_id: 
+  secure: $AWS_ACCESS_KEY
+ secret_access_key: 
+  secure: $AWS_SECRET_KEY
